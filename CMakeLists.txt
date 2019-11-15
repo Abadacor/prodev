@@ -5,6 +5,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(SOURCE_FILES main.cpp)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5Sql REQUIRED)
+
 add_executable(prodev ${SOURCE_FILES})
-target_link_libraries(prodev Qt5::Widgets)
+target_link_libraries(prodev Qt5::Widgets Qt5::Core Qt5::Sql)
 
