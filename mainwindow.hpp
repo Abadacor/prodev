@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <memory>
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +18,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QToolBar       *toolBar;
+    std::unique_ptr<QToolBar>       toolBar;
 
 private slots:
     void openLibrary();

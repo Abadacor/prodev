@@ -1,4 +1,3 @@
-#include <memory>
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
@@ -9,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Define actions. menuFile takes ownership of the pointers and handles the deletion
+    // Define actions. toolBar takes ownership of the pointers and handles the deletion
     QAction *actionOpen(new QAction("&Open", this));
     QAction *actionNew(new QAction("&New", this));
     QAction *actionSave(new QAction("&Save", this));
@@ -56,5 +55,4 @@ void MainWindow::quit()
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete toolBar;
 }
