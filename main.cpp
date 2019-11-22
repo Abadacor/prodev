@@ -7,8 +7,14 @@
 #include<QHBoxLayout>
 #include <iostream>
 
+#include "mainwindow.hpp"
+
 int main(int argc, char * argv[]) {
     qDebug() << QT_VERSION_STR;
+
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
 
     //Test SQL
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
