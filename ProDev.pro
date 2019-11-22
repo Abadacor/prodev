@@ -26,14 +26,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    persistentobject.cpp \
-    persistentattribute.cpp
+        mainwindow.cpp
 
 HEADERS += \
         mainwindow.hpp \
     persistentobject.h \
-    persistentattribute.h
+    persistentattribute.h \
+    persistentattribute.tpp \
+    persistentobject.tpp
 
 FORMS += \
         mainwindow.ui

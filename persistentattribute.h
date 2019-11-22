@@ -3,13 +3,16 @@
 
 #include <QVariant>
 
+template<class T>
 class PersistentAttribute
 {
 public:
     QString mName;
     QVariant::Type mType;
-    QString mData;
+    T mData;
     PersistentAttribute(const QString &name, QVariant::Type type);
 };
+
+#include "persistentattribute.tpp"
 
 #endif

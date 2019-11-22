@@ -5,17 +5,20 @@
 #include <memory>
 #include "persistentattribute.h"
 
+template<class T>
 class PersistentObject
 {
 private:
-    QList<std::unique_ptr<PersistentAttribute>> mAttributes;
+    QList<std::unique_ptr<PersistentAttribute<T>>> mAttributes;
     QString mTable;
-    int mId ;
+    int mId;
 
 public:
     PersistentObject(const QString &className);
-    void addAttribute(PersistentAttribute &attribute);
-    int save ();
+    void addAttribute(PersistentAttribute<T> &attribute);
+    int save();
 };
+
+#include "persistentobject.tpp"
 
 #endif
