@@ -16,6 +16,7 @@ int main(int argc, char * argv[]) {
     MainWindow w;
     w.show();
 
+    /*
     //Test SQL
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("test.db");
@@ -26,6 +27,6 @@ int main(int argc, char * argv[]) {
     }
 
     db.close ();
-
-    return 0;
+*/
+    return a.exec();
 }

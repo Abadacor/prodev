@@ -17,6 +17,14 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QToolBar       *toolBar;
+
+private slots:
+    void openLibrary();
+    void newLibrary();
+    void saveLibrary();
+    void saveLibraryAs();
+    void quit();
 };
 
 #endif // MAINWINDOW_HPP
