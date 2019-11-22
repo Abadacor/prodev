@@ -1,20 +1,14 @@
 #include "persistentobject.h"
+#include <iostream>
 
-template<class T>
-PersistentObject<T>::PersistentObject(const QString &className)
+using namespace std;
+
+PersistentObject::PersistentObject(const QString &className)
     :mTable(className)
 {
+    auto test = PersistentAttribute("test");
+    auto test2 = PersistentAttribute(12);
 
-}
-
-template<class T>
-void PersistentObject<T>::addAttribute(PersistentAttribute<T> &attribute)
-{
-    mAttributes.push_back(attribute);
-}
-
-template<class T>
-int PersistentObject<T>::save()
-{
-
+    cout << test.mData->get() << endl;
+    cout << test2.mData->get() << endl;
 }

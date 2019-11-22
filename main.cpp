@@ -8,13 +8,17 @@
 #include <iostream>
 
 #include "mainwindow.hpp"
+#include "persistentobject.h"
 
 int main(int argc, char * argv[]) {
     qDebug() << QT_VERSION_STR;
 
+    PersistentObject test("ok");
+
+
     QApplication a(argc, argv);
     MainWindow w;
-    w.show();
+//    w.show();
 
     /*
     //Test SQL
@@ -28,5 +32,6 @@ int main(int argc, char * argv[]) {
 
     db.close ();
 */
-    return a.exec();
+    //return a.exec();
+    return 0;
 }
