@@ -14,7 +14,7 @@ int main() {
     qDebug() << QT_VERSION_STR;
 
     Library lib("Library");
-    lib.addBook("Moi", "ezkn", 12, 12);
+    lib.addBook(QStringList("Moi"), "ezkn", 12, 12);
     lib.printBooks();
 
     /*

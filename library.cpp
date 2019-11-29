@@ -5,6 +5,10 @@ Library::Library(const QString& name)
     :mName(name)
     ,mDatabase(QSqlDatabase::addDatabase("QSQLITE"))
 {
+}
+
+void Library::createDatabase()
+{
     mDatabase.setDatabaseName(mName + ".db");
 
     // Nom du fichier SQLite
@@ -15,9 +19,9 @@ Library::Library(const QString& name)
     mDatabase.close ();
 }
 
-void Library::addBook(QString author, QString title, int ISBN, int year)
+void Library::addBook(QStringList authors, QString title, int ISBN, int year)
 {
-    mBooks.push_back(Book(mName, static_cast<int>(mBooks.size()), author, title, ISBN, year));
+    mBooks.push_back(Book(mName, static_cast<int>(mBooks.size()), authors, title, ISBN, year));
 }
 
 void Library::loadBooks()
@@ -34,6 +38,6 @@ void Library::saveBooks()
 void Library::printBooks()
 {
     for(auto ite: mBooks)
-        std::cout << ite.getAuthor().toStdString() << std::endl;
+        std::cout << ite.getTitle().toStdString() << std::endl;
 }
 
