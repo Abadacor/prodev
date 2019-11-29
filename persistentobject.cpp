@@ -1,27 +1,34 @@
 #include <QtSql>
 #include <iostream>
+#include <memory>
 #include "persistentobject.h"
 
-PersistentObject::PersistentObject(const QString &table)
+PersistentObject::PersistentObject(const QString &table, int id)
     :mTable(table)
+    ,mId(id)
 {
 }
 
-void PersistentObject::addAttribute(PersistentAttribute* attribute)
+PersistentObject::~PersistentObject()
 {
-    mAttributes.push_back(std::unique_ptr<PersistentAttribute>(attribute));
+    mAttributes.clear();
+}
+
+void PersistentObject::addAttribute(const QString &name, QVariant::Type type, void* data)
+{
+    mAttributes.push_back(new PersistentAttribute(name, type, data));
 }
 
 int PersistentObject::save()
 {
     // DB stuff
-    /*QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("test.db");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(mTable + ".db");
 
     if(!db.open()){
-        std::cout <<"Unable to open the database."<< endl;
+        std::cout <<"Unable to open the database."<< std::endl;
     }
 
-    db.close ();*/
+    db.close ();
     return 0;
 }

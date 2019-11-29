@@ -6,9 +6,7 @@
 class Book : public PersistentObject
 {
 public:
-    Book(const QString &table, QString &author, QString &title, int ISBN, int year);
-
-
+    Book(const QString &table, int id, QString &author, QString &title, int ISBN, int year);
 };
 
 #endif // BOOK_H

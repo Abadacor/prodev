@@ -2,16 +2,22 @@
 #define LIBRARY_H
 
 #include <vector>
+#include <QtSql>
 #include "book.h"
 
 class Library
 {
 public:
-    Library();
+    Library(const QString &name);
     void    addBook(QString &author, QString &title, int ISBN, int year);
+    void    loadBooks();
+    void    saveBooks();
 
 private:
+    QString             mName;
+    QSqlDatabase        mDatabase;
     std::vector<Book>   mBooks;
 };
 
 #endif // LIBRARY_H
+

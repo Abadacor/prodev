@@ -7,15 +7,18 @@
 
 class PersistentObject
 {
-protected:
-    std::vector<std::unique_ptr<PersistentAttribute>> mAttributes;
-    QString mTable;
-    int mId ;
-
 public:
-    PersistentObject(const QString &table);
-    void addAttribute(PersistentAttribute* attribute);
+    PersistentObject(const QString &table, int id);
+    ~PersistentObject();
+    void addAttribute(const QString &name, QVariant::Type type, void* data);
     int save();
+
+protected:
+    std::vector<PersistentAttribute*> mAttributes;
+    QString mTable;
+    int mId;
+
+
 };
 
 #endif
