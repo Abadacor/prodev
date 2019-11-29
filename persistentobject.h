@@ -17,8 +17,6 @@ protected:
     std::vector<PersistentAttribute*> mAttributes;
     QString mTable;
     int mId;
-
-
 };
 
 #endif
