@@ -12,3 +12,8 @@ Book::Book(const QString &table, int id, QString &author, QString &title, int IS
     addAttribute("ISBN", QVariant::String, &ISBN);
     addAttribute("Year", QVariant::String, &year);
 }
+
+QString Book::getAuthor() const
+{
+    return mAuthor;
+}

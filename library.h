@@ -9,9 +9,10 @@ class Library
 {
 public:
     Library(const QString &name);
-    void    addBook(QString &author, QString &title, int ISBN, int year);
+    void    addBook(QString author, QString title, int ISBN, int year);
     void    loadBooks();
     void    saveBooks();
+    void    printBooks();
 
 private:
     QString             mName;

@@ -8,16 +8,22 @@
 #include <iostream>
 
 #include "mainwindow.hpp"
-#include "persistentobject.h"
+#include "library.h"
 
-int main(int argc, char * argv[]) {
+int main() {
     qDebug() << QT_VERSION_STR;
 
-    QApplication a(argc, argv);
-    MainWindow w;
-//    w.show();
+    Library lib("Library");
+    lib.addBook("Moi", "ezkn", 12, 12);
+    lib.printBooks();
 
     /*
+    QApplication a(argc, argv);
+    MainWindow w;
+
+//    w.show();
+
+
     //Test SQL
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("test.db");

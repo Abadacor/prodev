@@ -16,7 +16,7 @@ PersistentObject::~PersistentObject()
 
 void PersistentObject::addAttribute(const QString &name, QVariant::Type type, void* data)
 {
-    mAttributes.push_back(new PersistentAttribute(name, type, data));
+    mAttributes.push_back(AttributePtr(new PersistentAttribute(name, type, data)));
 }
 
 int PersistentObject::save()

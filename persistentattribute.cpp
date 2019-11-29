@@ -7,5 +7,4 @@ PersistentAttribute::PersistentAttribute(const QString &name, QVariant::Type typ
     ,mData(data)
 
 {
-
 }
