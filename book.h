@@ -6,7 +6,7 @@
 class Book : public PersistentObject
 {
 public:
-    Book(const QString &table, int id, QStringList &authors, QString &title, int ISBN, int year);
+    Book(const QString &table, const QString &dbName, int id, QStringList &authors, QString &title, int ISBN, int year);
     QString getTitle() const;
 
 private:

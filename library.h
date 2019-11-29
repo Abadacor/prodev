@@ -17,7 +17,6 @@ public:
 
 private:
     QString             mName;
-    QSqlDatabase        mDatabase;
     std::vector<Book>   mBooks;
 };
 

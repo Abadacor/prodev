@@ -9,7 +9,7 @@ PersistentAttribute::PersistentAttribute(const QString &name, QVariant::Type typ
 {
 }
 
-QString PersistentAttribute::DataToString()
+QString PersistentAttribute::dataToString()
 {
     switch (static_cast<QMetaType::Type>(mType)) {
     case QMetaType::Int:

@@ -11,7 +11,7 @@ public:
     using AttributePtr = std::shared_ptr<PersistentAttribute>;
 
 public:
-    PersistentObject(const QString &table, int id);
+    PersistentObject(const QString &table, const QString &dbName, int id);
     ~PersistentObject();
     void addAttribute(const QString &name, QVariant::Type type, void* data);
     int save();
@@ -19,6 +19,7 @@ public:
 protected:
     std::vector<AttributePtr> mAttributes;
     QString mTable;
+    QString mDbName;
     int mId;
 };
 

@@ -12,7 +12,7 @@ public:
 
     PersistentAttribute(const QString &name, QVariant::Type type, void* data);
 
-    QString DataToString();
+    QString dataToString();
 };
 
 #endif

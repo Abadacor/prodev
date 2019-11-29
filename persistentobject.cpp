@@ -3,8 +3,9 @@
 #include <memory>
 #include "persistentobject.h"
 
-PersistentObject::PersistentObject(const QString &table, int id)
+PersistentObject::PersistentObject(const QString &table, const QString &dbName, int id)
     :mTable(table)
+    ,mDbName(dbName)
     ,mId(id)
 {
 }
@@ -27,6 +28,32 @@ int PersistentObject::save()
 
     if(!db.open()){
         std::cout <<"Unable to open the database."<< std::endl;
+    }
+    QString queryString("insert into " + mDbName + "(Id,");
+    QString insertStatement(") values(" + QString::number(mId) + ", ");
+    QString updateStatement(") on duplicate key update ");
+    for (auto attribute : mAttributes)
+    {
+        auto attributeType(static_cast<QMetaType::Type>(attribute->mType));
+        QString attributeString(attributeType == QMetaType::QString
+                                || attributeType == QMetaType::QStringList ?
+                                    "'" + attribute->dataToString() + "'" : attribute->dataToString());
+        updateStatement = updateStatement +attribute->mName + " = " + attributeString + ", ";
+        queryString = queryString + attribute->mName + ",";
+        insertStatement = insertStatement + attributeString + ", ";
+    }
+    queryString.chop(1);
+    insertStatement.chop(2);
+    updateStatement.chop(2);
+    queryString = queryString + insertStatement + updateStatement + ";";
+    qDebug() << queryString;
+    QSqlQuery query(db);
+    query.prepare(queryString);
+
+    if (!query.exec())
+    {
+        std::cout << "Error executing query" << std::endl;
+        qDebug() << query.lastError();
     }
 
     db.close ();

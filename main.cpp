@@ -16,6 +16,7 @@ int main() {
     Library lib("Library");
     lib.addBook(QStringList("Moi"), "ezkn", 12, 12);
     lib.printBooks();
+    //lib.saveBooks(); crashes
 
     /*
     QApplication a(argc, argv);
