@@ -28,12 +28,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     persistentattribute.cpp \
-    persistentobject.cpp
+    persistentobject.cpp \
+    book.cpp \
+    library.cpp
 
 HEADERS += \
         mainwindow.hpp \
     persistentobject.h \
-    persistentattribute.h
+    persistentattribute.h \
+    book.h \
+    library.h
 
 FORMS += \
         mainwindow.ui

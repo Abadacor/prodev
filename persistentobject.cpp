@@ -7,9 +7,9 @@ PersistentObject::PersistentObject(const QString &table)
 {
 }
 
-void PersistentObject::addAttribute(std::unique_ptr<PersistentAttribute> attribute)
+void PersistentObject::addAttribute(PersistentAttribute* attribute)
 {
-    mAttributes.push_back(std::move(attribute));
+    mAttributes.push_back(std::unique_ptr<PersistentAttribute>(attribute));
 }
 
 int PersistentObject::save()
