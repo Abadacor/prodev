@@ -8,18 +8,14 @@
 class PersistentObject
 {
 private:
-    QList<std::unique_ptr<PersistentAttribute>> mAttributes;
+    std::vector<std::unique_ptr<PersistentAttribute>> mAttributes;
     QString mTable;
-    int mId;
+    int mId ;
 
 public:
-    PersistentObject(const QString &className);
+    PersistentObject(const QString &table);
+    void addAttribute(std::unique_ptr<PersistentAttribute> attribute);
     int save();
-
-    template<typename T>
-    void addAttribute(PersistentAttributeModel<T> &attribute);
 };
-
-#include "persistentobject.tpp"
 
 #endif

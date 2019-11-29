@@ -2,33 +2,15 @@
 #define PERSISTENTATTR_H
 
 #include <QVariant>
-#include <memory>
-
-struct PersistentAttributeVirt {
-    virtual ~PersistentAttributeVirt() = 0;
-    virtual std::string get() = 0;
-};
-
-template< typename T >
-struct PersistentAttributeModel : PersistentAttributeVirt {
-    PersistentAttributeModel(const T& t);
-    virtual ~PersistentAttributeModel();
-    virtual std::string get();
-    T data;
-};
-
 
 class PersistentAttribute
 {
 public:
-    std::shared_ptr<PersistentAttributeVirt> mData;
     QString mName;
     QVariant::Type mType;
+    void* mData;
 
-    template<typename T>
-    PersistentAttribute(T data);
+    PersistentAttribute(const QString &name, QVariant::Type type, void* data);
 };
-
-#include "persistentattribute.tpp"
 
 #endif
