@@ -99,3 +99,23 @@ bool PersistentObject::isInDb()
     else
         return false;
 }
+
+void PersistentObject::deleteBook()
+{
+    // DB stuff
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(mTable + ".db");
+
+    if(!db.open()){
+        std::cout <<"Unable to open the database."<< std::endl;
+    }
+    QString queryString("delete from " + mDbName + " where Id = " + QString::number(mId));
+    QSqlQuery query(db);
+    query.prepare(queryString);
+    if (!query.exec())
+    {
+        std::cout << "Error executing query" << std::endl;
+        qDebug() << query.lastError();
+    }
+    db.close();
+}

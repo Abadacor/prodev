@@ -39,9 +39,44 @@ void Library::addBook(QStringList authors, QString title, int ISBN, int year)
     mBooks.push_back(Book(mName, "Books", static_cast<int>(mBooks.size()), authors, title, ISBN, year));
 }
 
+void Library::deleteBook(int id)
+{
+    if (id < mBooks.size())
+    {
+        mBooks[id].deleteBook();
+        mBooks.erase(mBooks.begin() + id);
+    }
+}
+
 void Library::loadBooks()
 {
-    /// Load books from database
+    auto database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName(mName + ".db");
+
+    // Nom du fichier SQLite
+    if(!database.open()){
+        std::cout <<"Unable to open the database."<< std::endl;
+    }
+    QString initQuery("select * from books order by id asc");
+    QSqlQuery query(database);
+    query.prepare(initQuery);
+
+    if (!query.exec())
+    {
+        std::cout << "Error executing query" << std::endl;
+        qDebug() << query.lastError();
+    }
+    while(query.next())
+    {
+        int id = query.value(0).toInt();
+        QStringList authors = query.value(1).toStringList();
+        QString title = query.value(2).toString();
+        int isnb = query.value(3).toInt();
+        int year = query.value(4).toInt();
+
+    }
+
+    database.close();
 }
 
 void Library::saveBooks()

@@ -16,6 +16,7 @@ public:
     void addAttribute(const QString &name, QVariant::Type type, void* data);
     int save();
     bool isInDb();
+    void deleteBook();
 
 protected:
     std::vector<AttributePtr> mAttributes;
