@@ -15,6 +15,7 @@ public:
     ~PersistentObject();
     void addAttribute(const QString &name, QVariant::Type type, void* data);
     int save();
+    bool isInDb();
 
 protected:
     std::vector<AttributePtr> mAttributes;

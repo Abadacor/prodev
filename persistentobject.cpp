@@ -22,31 +22,46 @@ void PersistentObject::addAttribute(const QString &name, QVariant::Type type, vo
 
 int PersistentObject::save()
 {
-    // DB stuff
+    QString queryString;
+
+    if(!isInDb())
+    {
+        queryString = "insert into " + mDbName + "(Id,";
+        QString insertStatement(") values(" + QString::number(mId) + ", ");
+
+        for (auto attribute : mAttributes)
+        {
+            auto attributeType(static_cast<QMetaType::Type>(attribute->mType));
+            QString attributeString(attributeType == QMetaType::QString
+                                    || attributeType == QMetaType::QStringList ?
+                                        "'" + attribute->dataToString() + "'" : attribute->dataToString());
+            queryString = queryString + attribute->mName + ",";
+            insertStatement = insertStatement + attributeString + ", ";
+        }
+        queryString.chop(1);
+        insertStatement.chop(2);
+        queryString = queryString + insertStatement + ");";
+    }
+    else {
+        queryString = "update " + mDbName + " set Id = " + QString::number(mId) + ", ";
+        for (auto attribute : mAttributes)
+        {
+            auto attributeType(static_cast<QMetaType::Type>(attribute->mType));
+            QString attributeString(attributeType == QMetaType::QString
+                                    || attributeType == QMetaType::QStringList ?
+                                        "'" + attribute->dataToString() + "'" : attribute->dataToString());
+            queryString = queryString +attribute->mName + " = " + attributeString + ", ";
+        }
+        queryString.chop(2);
+        queryString += " where Id = " + QString::number(mId) + ";";
+    }
+
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(mTable + ".db");
 
     if(!db.open()){
         std::cout <<"Unable to open the database."<< std::endl;
     }
-    QString queryString("insert into " + mDbName + "(Id,");
-    QString insertStatement(") values(" + QString::number(mId) + ", ");
-    QString updateStatement(") on duplicate key update ");
-    for (auto attribute : mAttributes)
-    {
-        auto attributeType(static_cast<QMetaType::Type>(attribute->mType));
-        QString attributeString(attributeType == QMetaType::QString
-                                || attributeType == QMetaType::QStringList ?
-                                    "'" + attribute->dataToString() + "'" : attribute->dataToString());
-        updateStatement = updateStatement +attribute->mName + " = " + attributeString + ", ";
-        queryString = queryString + attribute->mName + ",";
-        insertStatement = insertStatement + attributeString + ", ";
-    }
-    queryString.chop(1);
-    insertStatement.chop(2);
-    updateStatement.chop(2);
-    queryString = queryString + insertStatement + updateStatement + ";";
-    qDebug() << queryString;
     QSqlQuery query(db);
     query.prepare(queryString);
 
@@ -56,6 +71,31 @@ int PersistentObject::save()
         qDebug() << query.lastError();
     }
 
-    db.close ();
+    db.close();
     return 0;
+}
+
+
+bool PersistentObject::isInDb()
+{
+    // DB stuff
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(mTable + ".db");
+
+    if(!db.open()){
+        std::cout <<"Unable to open the database."<< std::endl;
+    }
+    QString queryString("select Id from " + mDbName + " where Id = " + QString::number(mId));
+    QSqlQuery query(db);
+    query.prepare(queryString);
+    if (!query.exec())
+    {
+        std::cout << "Error executing query" << std::endl;
+        qDebug() << query.lastError();
+    }
+    db.close();
+    if (query.next())
+        return true;
+    else
+        return false;
 }
