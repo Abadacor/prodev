@@ -15,7 +15,7 @@ int main(int argc, char * argv[]) {
 
     QApplication a(argc, argv);
     MainWindow w;
-//    w.show();
+    w.show();
 
     /*
     //Test SQL
@@ -29,6 +29,6 @@ int main(int argc, char * argv[]) {
 
     db.close ();
 */
-    //return a.exec();
-    return 0;
+    return a.exec();
+    //return 0;
 }
