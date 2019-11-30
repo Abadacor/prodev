@@ -11,6 +11,8 @@ public:
     void* mData;
 
     PersistentAttribute(const QString &name, QVariant::Type type, void* data);
+
+    QString dataToString();
 };
 
 #endif

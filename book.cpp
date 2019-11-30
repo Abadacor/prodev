@@ -1,14 +1,19 @@
 #include "book.h"
 
-Book::Book(const QString &table, int id, QString &author, QString &title, int ISBN, int year)
-    :PersistentObject(table, id)
-    ,mAuthor(author)
+Book::Book(const QString &table, const QString &dbName, int id, QStringList &authors, QString &title, int ISBN, int year)
+    :PersistentObject(table, dbName, id)
+    ,mAuthors(authors)
     ,mTitle(title)
     ,mISBN(ISBN)
     ,mYear(year)
 {
-    addAttribute("Author", QVariant::String, &author);
-    addAttribute("Title", QVariant::String, &title);
-    addAttribute("ISBN", QVariant::String, &ISBN);
-    addAttribute("Year", QVariant::String, &year);
+    addAttribute("Authors", QVariant::StringList, &mAuthors);
+    addAttribute("Title", QVariant::String, &mTitle);
+    addAttribute("ISBN", QVariant::Int, &mISBN);
+    addAttribute("Year", QVariant::Int, &mYear);
+}
+
+QString Book::getTitle() const
+{
+    return mTitle;
 }

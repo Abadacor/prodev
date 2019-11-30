@@ -8,10 +8,21 @@
 #include <iostream>
 
 #include "mainwindow.hpp"
-#include "persistentobject.h"
+#include "library.h"
 
-int main(int argc, char * argv[]) {
-    qDebug() << QT_VERSION_STR;
+int main(int argc, char *argv[]) {
+    Library lib("Library");
+    lib.loadBooks();
+    lib.addBook(QStringList("Moi"), "ezkn", 12, 12);
+    lib.addBook(QStringList("Moi"), "ELELzO", 54, 46554);
+    lib.addBook(QStringList("Moi"), "ELEzzLO", 54, 46554);
+    lib.addBook(QStringList("Moi"), "zzzELELO", 54, 46554);
+    lib.printBooks();
+    lib.saveBooks();
+    lib.deleteBook(0);
+    lib.printBooks();
+    lib.saveBooks();
+
 
     QApplication a(argc, argv);
     MainWindow w;
@@ -28,7 +39,8 @@ int main(int argc, char * argv[]) {
     }
 
     db.close ();
-*/
+    */
+
     return a.exec();
     //return 0;
 }

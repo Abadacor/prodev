@@ -8,14 +8,20 @@
 class PersistentObject
 {
 public:
-    PersistentObject(const QString &table, int id);
+    using AttributePtr = std::shared_ptr<PersistentAttribute>;
+
+public:
+    PersistentObject(const QString &table, const QString &dbName, int id);
     ~PersistentObject();
     void addAttribute(const QString &name, QVariant::Type type, void* data);
     int save();
+    bool isInDb();
+    void deleteBook();
 
 protected:
-    std::vector<PersistentAttribute*> mAttributes;
+    std::vector<AttributePtr> mAttributes;
     QString mTable;
+    QString mDbName;
     int mId;
 };
 
