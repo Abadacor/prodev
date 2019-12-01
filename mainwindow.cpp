@@ -27,6 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionSave, SIGNAL(triggered()), this, SLOT(saveLibrary()));
     connect(actionSaveAs, SIGNAL(triggered()), this, SLOT(saveLibraryAs()));
     connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
+
+    QString str = "";
+    for (auto book : this->lib.getBooks())
+        str += book.to_string() + "\n";
+
+    ui->display->setText(str);
 }
 
 void MainWindow::openLibrary()
@@ -50,6 +56,25 @@ void MainWindow::saveLibraryAs()
 void MainWindow::quit()
 {
     close();
+}
+
+void MainWindow::addBook()
+{
+    std::cout << "hello there" << std::endl;
+
+    QString name = ui->name->text();
+    QString author = ui->author->text();
+    int isbn = ui->isbn->text().split(" ")[0].toInt();
+    int year = ui->year->text().split(" ")[0].toInt();
+
+    this->lib.addBook(QStringList(author), name, isbn, year);
+    this->lib.printBooks();
+
+    QString str = "";
+    for (auto book : this->lib.getBooks())
+        str += book.to_string() + "\n";
+
+    ui->display->setText(str);
 }
 
 MainWindow::~MainWindow()

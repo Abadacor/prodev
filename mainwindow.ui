@@ -23,30 +23,38 @@
       <height>381</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="globalLayout">
      <item>
-      <widget class="QListView" name="listView"/>
-     </item>
-     <item>
-      <layout class="QFormLayout" name="formLayout_2">
-       <item row="0" column="0">
-        <widget class="QLineEdit" name="lineEdit"/>
+      <layout class="QVBoxLayout" name="InternalLayout">
+       <item>
+        <widget class="QTextEdit" name="display"/>
        </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_2"/>
+       <item>
+        <layout class="QVBoxLayout" name="textFieldsLayout">
+         <item>
+          <layout class="QHBoxLayout" name="nameAndAuthorFieldsLayout">
+           <item>
+            <widget class="QLineEdit" name="author"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="name"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="isbnAndYearFieldsLayout">
+           <item>
+            <widget class="QLineEdit" name="isbn"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="year"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
-       <item row="1" column="0">
-        <widget class="QLineEdit" name="lineEdit_3"/>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_4">
-         <property name="inputMask">
-          <string>hello</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="pushButton">
+       <item>
+        <widget class="QPushButton" name="addBookButton">
          <property name="text">
           <string>PushButton</string>
          </property>
@@ -94,5 +102,41 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>addBookButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>addBook()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>348</x>
+     <y>393</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>367</x>
+     <y>417</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addBookButton</sender>
+   <signal>clicked()</signal>
+   <receiver>display</receiver>
+   <slot>repaint()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>229</x>
+     <y>389</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addBook()</slot>
+ </slots>
 </ui>

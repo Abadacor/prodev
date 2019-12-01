@@ -17,3 +17,8 @@ QString Book::getTitle() const
 {
     return mTitle;
 }
+
+QString Book::to_string()
+{
+    return mTitle + ", " + mAuthors[0] + ", " + QString::number(mYear) + ", " + QString::number(mISBN) + "\n";
+}

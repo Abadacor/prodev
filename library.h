@@ -15,6 +15,7 @@ public:
     void    deleteBook(int id);
     void    saveBooks();
     void    printBooks();
+    std::vector<Book> getBooks();
 
 private:
     QString             mName;

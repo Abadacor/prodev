@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <memory>
+#include <iostream>
+#include "library.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,12 +21,16 @@ public:
 private:
     Ui::MainWindow *ui;
     std::unique_ptr<QToolBar>       toolBar;
+    Library lib = Library("windowLib");
 
 private slots:
     void openLibrary();
     void newLibrary();
     void saveLibrary();
     void saveLibraryAs();
+
+    void addBook();
+
     void quit();
 };
 
