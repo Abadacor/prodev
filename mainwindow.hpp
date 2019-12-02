@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <memory>
 #include <iostream>
+#include <time.h>
 #include "library.h"
 
 namespace Ui {
@@ -23,6 +24,10 @@ private:
     std::unique_ptr<QToolBar>       toolBar;
     Library lib = Library("windowLib");
     void repaint();
+
+    bool checkString(QString str);
+    bool checkISBN(QString isbn);
+    bool checkYear(int year);
 
 private slots:
     void openLibrary();

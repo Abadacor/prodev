@@ -56,12 +56,16 @@ void MainWindow::quit()
 
 void MainWindow::addBook()
 {
-    std::cout << "hello there" << std::endl;
-
     QString name = ui->name->text();
     QString author = ui->author->text();
     int isbn = ui->isbn->text().split(" ")[0].toInt();
     int year = ui->year->text().split(" ")[0].toInt();
+
+    assert(this->checkString(name));
+    assert(this->checkString(author));
+    //assert(this->checkISBN(isbn));
+    assert(this->checkYear(year));
+
 
     this->lib.addBook(QStringList(author), name, isbn, year);
     this->lib.printBooks();
@@ -84,7 +88,7 @@ void MainWindow::deleteBook()
         }
     }
     lib.getBooks().erase(lib.getBooks().begin()+index);
-
+    lib.printBooks();
     repaint();
 
 }
@@ -93,9 +97,36 @@ void MainWindow::repaint()
 {
     QString str = "Title\tAuthor\tISBN\tYear of publication\n";
     for (auto book : this->lib.getBooks())
-        str += book.to_string() + "\n";
+        str += book.to_string();
 
     ui->display->setText(str);
+    ui->name->setText("");
+    ui->author->setText("");
+    ui->isbn->setText("");
+    ui->year->setText("");
+}
+
+bool MainWindow::checkString(QString str)
+{
+    if(str.isEmpty() || str.size()>=50 || (str[str.size()]=="-" && str[str.size()-1]=="-"))
+        return false;
+    else
+        return true;
+}
+
+bool MainWindow::checkISBN(QString isbn)
+{
+    QRegExp rx("\\d-\\d{4}-\\d{4}-\\d");
+    return rx.exactMatch(isbn);
+}
+
+bool MainWindow::checkYear(int year)
+{
+    time_t theTime = time(NULL);
+    struct tm *aTime = localtime(&theTime);
+    int y = aTime->tm_year + 1900;
+
+    return year<=y;
 }
 
 MainWindow::~MainWindow()
