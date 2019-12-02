@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>444</height>
+    <width>964</width>
+    <height>605</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,6 +80,20 @@
         <widget class="QPushButton" name="pushButton">
          <property name="text">
           <string>Delete from library</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="libLayout">
+       <item>
+        <widget class="QLineEdit" name="libName"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>Change Library</string>
          </property>
         </widget>
        </item>
