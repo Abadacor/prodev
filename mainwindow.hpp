@@ -21,8 +21,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    std::unique_ptr<QToolBar>       toolBar;
-    Library lib = Library("windowLib");
+    std::unique_ptr<QToolBar> toolBar;
+    Library lib;
     void repaint();
 
     bool checkString(QString str);
@@ -30,10 +30,7 @@ private:
     bool checkYear(int year);
 
 private slots:
-    void openLibrary();
-    void newLibrary();
     void saveLibrary();
-    void saveLibraryAs();
 
     void addBook();
     void deleteBook();

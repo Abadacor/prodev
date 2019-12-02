@@ -91,7 +91,7 @@ void Library::printBooks()
         std::cout << ite.getTitle().toStdString() << std::endl;
 }
 
-std::vector<Book> Library::getBooks()
+std::vector<Book>& Library::getBooks()
 {
     return mBooks;
 }

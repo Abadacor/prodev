@@ -4,51 +4,31 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    toolBar(addToolBar("&Library"))
+    toolBar(addToolBar("&Library")),
+    lib("windowLib")
 {
     ui->setupUi(this);
 
     // Define actions. toolBar takes ownership of the pointers and handles the deletion
-    QAction *actionOpen(new QAction("&Open", this));
-    QAction *actionNew(new QAction("&New", this));
     QAction *actionSave(new QAction("&Save", this));
-    QAction *actionSaveAs(new QAction("Save &as", this));
     QAction *actionQuit(new QAction("&Quit", this));
 
-    toolBar->addAction(actionOpen);
-    toolBar->addAction(actionNew);
     toolBar->addAction(actionSave);
-    toolBar->addAction(actionSaveAs);
     toolBar->addAction(actionQuit);
 
     // Link actions to corresponding function
-    connect(actionOpen, SIGNAL(triggered()), this, SLOT(openLibrary()));
-    connect(actionNew, SIGNAL(triggered()), this, SLOT(newLibrary()));
     connect(actionSave, SIGNAL(triggered()), this, SLOT(saveLibrary()));
-    connect(actionSaveAs, SIGNAL(triggered()), this, SLOT(saveLibraryAs()));
     connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
 
     repaint();
 }
 
-void MainWindow::openLibrary()
-{
-    statusBar()->showMessage(tr("open"),2000);
-}
-
-void MainWindow::newLibrary()
-{
-    statusBar()->showMessage(tr("new"),2000);
-}
-
 void MainWindow::saveLibrary()
 {
-    statusBar()->showMessage(tr("save"),2000);
+    lib.saveBooks();
+    statusBar()->showMessage(tr("saved"),2000);
 }
-void MainWindow::saveLibraryAs()
-{
-    statusBar()->showMessage(tr("saveas"),2000);
-}
+
 void MainWindow::quit()
 {
     close();
@@ -77,20 +57,24 @@ void MainWindow::deleteBook()
 {
     int isbn = ui->isbn->text().split(" ")[0].toInt();
     int index = -1;
+    std::vector<Book>& books(lib.getBooks());
 
-    for(int i=0;i<lib.getBooks().size();i++)
+    for(int i=0;i<books.size();i++)
     {
-        if(lib.getBooks()[i].getISBN()==isbn)
+        if(books[i].getISBN()==isbn)
         {
             std::cout << "IN!" << std::endl;
-            lib.getBooks()[i].deleteBook();
+            books[i].deleteBook();
             index = i;
+            break;
         }
     }
-    lib.getBooks().erase(lib.getBooks().begin()+index);
-    lib.printBooks();
-    repaint();
-
+    if(index != -1)
+    {
+        books.erase(books.begin()+index);
+        lib.printBooks();
+        repaint();
+    }
 }
 
 void MainWindow::repaint()
