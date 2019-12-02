@@ -34,20 +34,36 @@
          <item>
           <layout class="QHBoxLayout" name="nameAndAuthorFieldsLayout">
            <item>
-            <widget class="QLineEdit" name="author"/>
+            <widget class="QLineEdit" name="author">
+             <property name="placeholderText">
+              <string>Title</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="name"/>
+            <widget class="QLineEdit" name="name">
+             <property name="placeholderText">
+              <string>Author</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
          <item>
           <layout class="QHBoxLayout" name="isbnAndYearFieldsLayout">
            <item>
-            <widget class="QLineEdit" name="isbn"/>
+            <widget class="QLineEdit" name="isbn">
+             <property name="placeholderText">
+              <string>ISBN</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="year"/>
+            <widget class="QLineEdit" name="year">
+             <property name="placeholderText">
+              <string>Year of publication</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -56,7 +72,14 @@
        <item>
         <widget class="QPushButton" name="addBookButton">
          <property name="text">
-          <string>PushButton</string>
+          <string>Add to library</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Delete from library</string>
          </property>
         </widget>
        </item>
@@ -110,8 +133,8 @@
    <slot>addBook()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>348</x>
-     <y>393</y>
+     <x>350</x>
+     <y>375</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
@@ -126,8 +149,8 @@
    <slot>repaint()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>229</x>
-     <y>389</y>
+     <x>231</x>
+     <y>375</y>
     </hint>
     <hint type="destinationlabel">
      <x>192</x>
@@ -135,8 +158,41 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>display</receiver>
+   <slot>repaint()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>229</x>
+     <y>386</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>deleteBook()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>477</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>492</x>
+     <y>418</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addBook()</slot>
+  <slot>deleteBook()</slot>
  </slots>
 </ui>

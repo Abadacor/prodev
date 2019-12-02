@@ -28,11 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(actionSaveAs, SIGNAL(triggered()), this, SLOT(saveLibraryAs()));
     connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
 
-    QString str = "";
-    for (auto book : this->lib.getBooks())
-        str += book.to_string() + "\n";
-
-    ui->display->setText(str);
+    repaint();
 }
 
 void MainWindow::openLibrary()
@@ -70,7 +66,32 @@ void MainWindow::addBook()
     this->lib.addBook(QStringList(author), name, isbn, year);
     this->lib.printBooks();
 
-    QString str = "";
+    repaint();
+}
+
+void MainWindow::deleteBook()
+{
+    int isbn = ui->isbn->text().split(" ")[0].toInt();
+    int index = -1;
+
+    for(int i=0;i<lib.getBooks().size();i++)
+    {
+        if(lib.getBooks()[i].getISBN()==isbn)
+        {
+            std::cout << "IN!" << std::endl;
+            lib.getBooks()[i].deleteBook();
+            index = i;
+        }
+    }
+    lib.getBooks().erase(lib.getBooks().begin()+index);
+
+    repaint();
+
+}
+
+void MainWindow::repaint()
+{
+    QString str = "Title\tAuthor\tISBN\tYear of publication\n";
     for (auto book : this->lib.getBooks())
         str += book.to_string() + "\n";
 

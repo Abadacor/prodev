@@ -18,7 +18,12 @@ QString Book::getTitle() const
     return mTitle;
 }
 
+int Book::getISBN() const
+{
+    return mISBN;
+}
+
 QString Book::to_string()
 {
-    return mTitle + ", " + mAuthors[0] + ", " + QString::number(mYear) + ", " + QString::number(mISBN) + "\n";
+    return mTitle + "\t" + mAuthors[0] + "\t" + QString::number(mISBN) + "\t" + QString::number(mYear) + "\n";
 }

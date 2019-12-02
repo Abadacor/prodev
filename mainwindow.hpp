@@ -22,6 +22,7 @@ private:
     Ui::MainWindow *ui;
     std::unique_ptr<QToolBar>       toolBar;
     Library lib = Library("windowLib");
+    void repaint();
 
 private slots:
     void openLibrary();
@@ -30,6 +31,7 @@ private slots:
     void saveLibraryAs();
 
     void addBook();
+    void deleteBook();
 
     void quit();
 };
