@@ -3,10 +3,10 @@
 #include <memory>
 #include "persistentobject.h"
 
-PersistentObject::PersistentObject(const QString &table, const QString &dbName, int id)
+PersistentObject::PersistentObject(const QString &table, const QString &dbName, QString primaryKeyField)
     :mTable(table)
     ,mDbName(dbName)
-    ,mId(id)
+    ,mPrimaryKeyField(primaryKeyField)
 {
 }
 
@@ -20,14 +20,14 @@ void PersistentObject::addAttribute(const QString &name, QVariant::Type type, vo
     mAttributes.push_back(AttributePtr(new PersistentAttribute(name, type, data)));
 }
 
-int PersistentObject::save()
+int PersistentObject::save(int primaryKeyValue)
 {
     QString queryString;
 
-    if(!isInDb())
+    if(!isInDb(primaryKeyValue))
     {
-        queryString = "insert into " + mDbName + "(Id,";
-        QString insertStatement(") values(" + QString::number(mId) + ", ");
+        queryString = "insert into " + mDbName + "(";
+        QString insertStatement(") values(");
 
         for (auto attribute : mAttributes)
         {
@@ -43,7 +43,7 @@ int PersistentObject::save()
         queryString = queryString + insertStatement + ");";
     }
     else {
-        queryString = "update " + mDbName + " set Id = " + QString::number(mId) + ", ";
+        queryString = "update " + mDbName + " ";
         for (auto attribute : mAttributes)
         {
             auto attributeType(static_cast<QMetaType::Type>(attribute->mType));
@@ -53,7 +53,7 @@ int PersistentObject::save()
             queryString = queryString +attribute->mName + " = " + attributeString + ", ";
         }
         queryString.chop(2);
-        queryString += " where Id = " + QString::number(mId) + ";";
+        queryString += " where " + mPrimaryKeyField + " = " + QString::number(primaryKeyValue) + ";";
     }
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -76,7 +76,7 @@ int PersistentObject::save()
 }
 
 
-bool PersistentObject::isInDb()
+bool PersistentObject::isInDb(int primaryKeyValue)
 {
     // DB stuff
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -85,7 +85,7 @@ bool PersistentObject::isInDb()
     if(!db.open()){
         std::cout <<"Unable to open the database."<< std::endl;
     }
-    QString queryString("select Id from " + mDbName + " where Id = " + QString::number(mId));
+    QString queryString("select * from " + mDbName + " where " + mPrimaryKeyField + " = " + QString::number(primaryKeyValue));
     QSqlQuery query(db);
     query.prepare(queryString);
     if (!query.exec())
@@ -100,7 +100,7 @@ bool PersistentObject::isInDb()
         return false;
 }
 
-void PersistentObject::deleteBook()
+void PersistentObject::deleteBook(int primaryKeyValue)
 {
     // DB stuff
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -109,7 +109,7 @@ void PersistentObject::deleteBook()
     if(!db.open()){
         std::cout <<"Unable to open the database."<< std::endl;
     }
-    QString queryString("delete from " + mDbName + " where Id = " + QString::number(mId));
+    QString queryString("delete from " + mDbName + " where " + mPrimaryKeyField + " = " + QString::number(primaryKeyValue));
     QSqlQuery query(db);
     query.prepare(queryString);
     if (!query.exec())
