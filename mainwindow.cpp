@@ -74,24 +74,19 @@ void MainWindow::addBook()
 void MainWindow::deleteBook()
 {
     int isbn = ui->isbn->text().split(" ")[0].toInt();
-    int index = -1;
     std::vector<Book>& books(lib.getBooks());
 
-    for(int i=0;i<books.size();i++)
+    for(auto ite = books.begin(); ite != books.end(); ite++)
     {
-        if(books[i].getISBN()==isbn)
+        if(ite->getISBN()==isbn)
         {
             std::cout << "IN!" << std::endl;
-            books[i].deleteBook();
-            index = i;
+            ite->deleteBook(ite->getISBN());
+            books.erase(ite);
+            lib.printBooks();
+            repaint();
             break;
         }
-    }
-    if(index != -1)
-    {
-        books.erase(books.begin()+index);
-        lib.printBooks();
-        repaint();
     }
 }
 

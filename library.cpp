@@ -17,10 +17,9 @@ void Library::createDatabase()
         std::cout <<"Unable to open the database."<< std::endl;
     }
     QString initQuery("create table if not exists Books "
-              "(id integer primary key, "
-              "Authors varchar(1023), "
+              "(Authors varchar(1023), "
               "Title varchar(255), "
-              "Isbn integer, "
+              "Isbn integer primary key, "
               "Year integer)");
     QSqlQuery query(database);
     query.prepare(initQuery);
@@ -36,16 +35,20 @@ void Library::createDatabase()
 
 void Library::addBook(QStringList authors, QString title, int ISBN, int year)
 {
-    mBooks.push_back(Book(mName, "Books", static_cast<int>(mBooks.size()), authors, title, ISBN, year));
+    mBooks.push_back(Book(mName, "Books", authors, title, ISBN, year));
 }
 
-void Library::deleteBook(int id)
+void Library::deleteBook(int isbn)
 {
-    if (id < mBooks.size())
+    for (auto ite = mBooks.begin(); ite != mBooks.end(); ite++)
     {
-        mBooks[id].deleteBook();
-        mBooks.erase(mBooks.begin() + id);
+        if (ite->getISBN() == isbn)
+        {
+            ite->deleteBook(isbn);
+            mBooks.erase(ite);
+        }
     }
+
 }
 
 void Library::loadBooks()
@@ -68,12 +71,11 @@ void Library::loadBooks()
     }
     while(query.next())
     {
-        int id = query.value(0).toInt();
         QStringList authors = query.value(1).toStringList();
         QString title = query.value(2).toString();
         int isnb = query.value(3).toInt();
         int year = query.value(4).toInt();
-
+        addBook(authors, title, isnb, year);
     }
 
     database.close();
@@ -81,8 +83,8 @@ void Library::loadBooks()
 
 void Library::saveBooks()
 {
-    for(auto ite: mBooks)
-        ite.save();
+    for(auto book: mBooks)
+        book.save(book.getISBN());
 }
 
 void Library::printBooks()

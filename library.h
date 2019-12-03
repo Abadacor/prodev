@@ -12,7 +12,7 @@ public:
     void    createDatabase();
     void    addBook(QStringList authors, QString title, int ISBN, int year);
     void    loadBooks();
-    void    deleteBook(int id);
+    void    deleteBook(int isbn);
     void    saveBooks();
     void    printBooks();
     std::vector<Book>& getBooks();
