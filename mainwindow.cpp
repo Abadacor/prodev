@@ -29,6 +29,20 @@ void MainWindow::saveLibrary()
     statusBar()->showMessage(tr("saved"),2000);
 }
 
+void MainWindow::changeLibrary()
+{
+    QString newName = ui->libName->text();
+    if(!checkString(newName))
+        throw std::invalid_argument("The new Library name is not correct!");
+
+    this->lib.saveBooks();
+    this->lib.~Library();
+    new(&this->lib) Library(newName);
+    this->lib.loadBooks();
+
+    repaint();
+}
+
 void MainWindow::quit()
 {
     close();
@@ -41,10 +55,14 @@ void MainWindow::addBook()
     int isbn = ui->isbn->text().split(" ")[0].toInt();
     int year = ui->year->text().split(" ")[0].toInt();
 
-    assert(this->checkString(name));
-    assert(this->checkString(author));
-    //assert(this->checkISBN(isbn));
-    assert(this->checkYear(year));
+    if(!checkString(name))
+        throw std::invalid_argument("The new book name is not correct!");
+    if(!checkString(author))
+        throw std::invalid_argument("The new author name is not correct!");
+    //if(!checkISBN(isbn))
+        //throw std::invalid_argument("The new ISBN is not correct!");
+    if(!checkYear(year))
+        throw std::invalid_argument("The new publication date is not correct!");
 
 
     this->lib.addBook(QStringList(author), name, isbn, year);

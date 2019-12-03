@@ -88,10 +88,14 @@
      <item>
       <layout class="QHBoxLayout" name="libLayout">
        <item>
-        <widget class="QLineEdit" name="libName"/>
+        <widget class="QLineEdit" name="libName">
+         <property name="placeholderText">
+          <string>library name</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="libChange">
          <property name="text">
           <string>Change Library</string>
          </property>
@@ -147,8 +151,8 @@
    <slot>addBook()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>350</x>
-     <y>375</y>
+     <x>352</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
@@ -163,12 +167,12 @@
    <slot>repaint()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>231</x>
-     <y>375</y>
+     <x>233</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel">
-     <x>192</x>
-     <y>269</y>
+     <x>194</x>
+     <y>251</y>
     </hint>
    </hints>
   </connection>
@@ -179,12 +183,12 @@
    <slot>repaint()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>229</x>
-     <y>386</y>
+     <x>231</x>
+     <y>373</y>
     </hint>
     <hint type="destinationlabel">
-     <x>231</x>
-     <y>264</y>
+     <x>233</x>
+     <y>251</y>
     </hint>
    </hints>
   </connection>
@@ -195,8 +199,8 @@
    <slot>deleteBook()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>477</x>
-     <y>395</y>
+     <x>479</x>
+     <y>373</y>
     </hint>
     <hint type="destinationlabel">
      <x>492</x>
@@ -204,9 +208,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>libChange</sender>
+   <signal>clicked()</signal>
+   <receiver>display</receiver>
+   <slot>repaint()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>610</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>600</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>libChange</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>changeLibrary()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>633</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>656</x>
+     <y>422</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addBook()</slot>
   <slot>deleteBook()</slot>
+  <slot>changeLibrary()</slot>
  </slots>
 </ui>

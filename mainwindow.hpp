@@ -31,6 +31,7 @@ private:
 
 private slots:
     void saveLibrary();
+    void changeLibrary();
 
     void addBook();
     void deleteBook();
