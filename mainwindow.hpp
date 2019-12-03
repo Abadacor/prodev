@@ -26,7 +26,7 @@ private:
     void repaint();
 
     bool checkString(QString str);
-    bool checkISBN(QString isbn);
+    bool checkISBN(int isbn);
     bool checkYear(int year);
 
 private slots:

@@ -59,8 +59,8 @@ void MainWindow::addBook()
         throw std::invalid_argument("The new book name is not correct!");
     if(!checkString(author))
         throw std::invalid_argument("The new author name is not correct!");
-    //if(!checkISBN(isbn))
-        //throw std::invalid_argument("The new ISBN is not correct!");
+    if(!checkISBN(isbn))
+        throw std::invalid_argument("The new ISBN is not correct!");
     if(!checkYear(year))
         throw std::invalid_argument("The new publication date is not correct!");
 
@@ -111,10 +111,9 @@ bool MainWindow::checkString(QString str)
         return true;
 }
 
-bool MainWindow::checkISBN(QString isbn)
+bool MainWindow::checkISBN(int isbn)
 {
-    QRegExp rx("\\d-\\d{4}-\\d{4}-\\d");
-    return rx.exactMatch(isbn);
+    return floor(log10(isbn) + 1)==10;
 }
 
 bool MainWindow::checkYear(int year)
