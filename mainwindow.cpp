@@ -51,21 +51,26 @@ void MainWindow::quit()
 void MainWindow::addBook()
 {
     QString name = ui->name->text();
-    QString author = ui->author->text();
-    int isbn = ui->isbn->text().split(" ")[0].toInt();
+    QString authorField = ui->author->text();
+
+    //To get all authors, split string on "," and add them to a QStringList;
+    QStringList authors = authorField.split(',');
+
+    QString isbn = ui->isbn->text();
     int year = ui->year->text().split(" ")[0].toInt();
 
     if(!checkString(name))
         throw std::invalid_argument("The new book name is not correct!");
-    if(!checkString(author))
-        throw std::invalid_argument("The new author name is not correct!");
-    if(!checkISBN(isbn))
-        throw std::invalid_argument("The new ISBN is not correct!");
+    for(auto auth : authors)
+        if(!checkString(auth))
+            throw std::invalid_argument("The new author name is not correct!");
+    //if(!checkISBN(isbn))
+    //    throw std::invalid_argument("The new ISBN is not correct!");
     if(!checkYear(year))
         throw std::invalid_argument("The new publication date is not correct!");
 
 
-    this->lib.addBook(QStringList(author), name, isbn, year);
+    this->lib.addBook(QStringList(authors), name, isbn, year);
     this->lib.printBooks();
 
     repaint();
@@ -111,9 +116,9 @@ bool MainWindow::checkString(QString str)
         return true;
 }
 
-bool MainWindow::checkISBN(int isbn)
+bool MainWindow::checkISBN(QString isbn)
 {
-    return floor(log10(isbn) + 1)==10;
+    return true;
 }
 
 bool MainWindow::checkYear(int year)

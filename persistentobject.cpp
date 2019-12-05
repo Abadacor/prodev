@@ -20,7 +20,7 @@ void PersistentObject::addAttribute(const QString &name, QVariant::Type type, vo
     mAttributes.push_back(AttributePtr(new PersistentAttribute(name, type, data)));
 }
 
-int PersistentObject::save(int primaryKeyValue)
+int PersistentObject::save(QString primaryKeyValue)
 {
     QString queryString;
 
@@ -53,7 +53,7 @@ int PersistentObject::save(int primaryKeyValue)
             queryString = queryString +attribute->mName + " = " + attributeString + ", ";
         }
         queryString.chop(2);
-        queryString += " where " + mPrimaryKeyField + " = " + QString::number(primaryKeyValue) + ";";
+        queryString += " where " + mPrimaryKeyField + " = " + primaryKeyValue + ";";
     }
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -76,7 +76,7 @@ int PersistentObject::save(int primaryKeyValue)
 }
 
 
-bool PersistentObject::isInDb(int primaryKeyValue)
+bool PersistentObject::isInDb(QString primaryKeyValue)
 {
     // DB stuff
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -85,7 +85,7 @@ bool PersistentObject::isInDb(int primaryKeyValue)
     if(!db.open()){
         std::cout <<"Unable to open the database."<< std::endl;
     }
-    QString queryString("select * from " + mDbName + " where " + mPrimaryKeyField + " = " + QString::number(primaryKeyValue));
+    QString queryString("select * from " + mDbName + " where " + mPrimaryKeyField + " = " + primaryKeyValue);
     QSqlQuery query(db);
     query.prepare(queryString);
     if (!query.exec())
@@ -100,7 +100,7 @@ bool PersistentObject::isInDb(int primaryKeyValue)
         return false;
 }
 
-void PersistentObject::deleteBook(int primaryKeyValue)
+void PersistentObject::deleteBook(QString primaryKeyValue)
 {
     // DB stuff
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -109,7 +109,7 @@ void PersistentObject::deleteBook(int primaryKeyValue)
     if(!db.open()){
         std::cout <<"Unable to open the database."<< std::endl;
     }
-    QString queryString("delete from " + mDbName + " where " + mPrimaryKeyField + " = " + QString::number(primaryKeyValue));
+    QString queryString("delete from " + mDbName + " where " + mPrimaryKeyField + " = " + primaryKeyValue);
     QSqlQuery query(db);
     query.prepare(queryString);
     if (!query.exec())

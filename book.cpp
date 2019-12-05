@@ -1,6 +1,6 @@
 #include "book.h"
 
-Book::Book(const QString &table, const QString &dbName, QStringList &authors, QString &title, int ISBN, int year)
+Book::Book(const QString &table, const QString &dbName, QStringList &authors, QString &title, QString ISBN, int year)
     :PersistentObject(table, dbName, "ISBN")
     ,mAuthors(authors)
     ,mTitle(title)
@@ -9,7 +9,7 @@ Book::Book(const QString &table, const QString &dbName, QStringList &authors, QS
 {
     addAttribute("Authors", QVariant::StringList, &mAuthors);
     addAttribute("Title", QVariant::String, &mTitle);
-    addAttribute("ISBN", QVariant::Int, &mISBN);
+    addAttribute("ISBN", QVariant::String, &mISBN);
     addAttribute("Year", QVariant::Int, &mYear);
 }
 
@@ -18,12 +18,15 @@ QString Book::getTitle() const
     return mTitle;
 }
 
-int Book::getISBN() const
+QString Book::getISBN() const
 {
     return mISBN;
 }
 
 QString Book::to_string()
 {
-    return mTitle + "\t" + mAuthors[0] + "\t" + QString::number(mISBN) + "\t" + QString::number(mYear) + "\n";
+    QString authors = "";
+    for(auto auth : mAuthors)
+        authors += auth + ", ";
+    return mTitle + "\t" + authors + "\t" + mISBN + "\t" + QString::number(mYear) + "\n";
 }

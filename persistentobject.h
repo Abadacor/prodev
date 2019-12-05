@@ -14,9 +14,9 @@ public:
     PersistentObject(const QString &table, const QString &dbName, QString primaryKeyField);
     ~PersistentObject();
     void addAttribute(const QString &name, QVariant::Type type, void* data);
-    int save(int primaryKeyValue);
-    bool isInDb(int primaryKeyValue);
-    void deleteBook(int primaryKeyValue);
+    int save(QString primaryKeyValue);
+    bool isInDb(QString primaryKeyValue);
+    void deleteBook(QString primaryKeyValue);
 
 protected:
     std::vector<AttributePtr> mAttributes;

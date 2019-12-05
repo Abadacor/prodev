@@ -10,9 +10,9 @@ class Library
 public:
     Library(const QString &name);
     void    createDatabase();
-    void    addBook(QStringList authors, QString title, int ISBN, int year);
+    void    addBook(QStringList authors, QString title, QString ISBN, int year);
     void    loadBooks();
-    void    deleteBook(int isbn);
+    void    deleteBook(QString isbn);
     void    saveBooks();
     void    printBooks();
     std::vector<Book>& getBooks();

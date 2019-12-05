@@ -33,12 +33,12 @@ void Library::createDatabase()
     database.close();
 }
 
-void Library::addBook(QStringList authors, QString title, int ISBN, int year)
+void Library::addBook(QStringList authors, QString title, QString ISBN, int year)
 {
     mBooks.push_back(Book(mName, "Books", authors, title, ISBN, year));
 }
 
-void Library::deleteBook(int isbn)
+void Library::deleteBook(QString isbn)
 {
     for (auto ite = mBooks.begin(); ite != mBooks.end(); ite++)
     {
@@ -73,9 +73,9 @@ void Library::loadBooks()
     {
         QStringList authors = query.value(1).toStringList();
         QString title = query.value(2).toString();
-        int isnb = query.value(3).toInt();
+        QString isbn = query.value(3).toString();
         int year = query.value(4).toInt();
-        addBook(authors, title, isnb, year);
+        addBook(authors, title, isbn, year);
     }
 
     database.close();
