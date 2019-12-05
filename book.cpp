@@ -8,8 +8,8 @@ Book::Book(const QString &table, const QString &dbName, QStringList &authors, QS
     ,mYear(year)
 {
     addAttribute("Title", QVariant::String, &mTitle);
-    addAttribute("ISBN", QVariant::String, &mISBN);
     addAttribute("Authors", QVariant::StringList, &mAuthors);
+    addAttribute("ISBN", QVariant::String, &mISBN);
     addAttribute("Year", QVariant::Int, &mYear);
 }
 

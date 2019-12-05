@@ -71,8 +71,8 @@ void Library::loadBooks()
     }
     while(query.next())
     {
-        QStringList authors = query.value(0).toStringList();
-        QString title = query.value(1).toString();
+        QString title = query.value(0).toString();
+        QStringList authors = query.value(1).toStringList();
         QString isnb = query.value(2).toString();
         int year = query.value(3).toInt();
         addBook(authors, title, isnb, year);

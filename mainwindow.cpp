@@ -70,8 +70,8 @@ void MainWindow::addBook()
         throw std::invalid_argument("The new publication date is not correct!");
 
 
-    this->lib.addBook(QStringList(authors), name, isbn, year);
-    this->lib.printBooks();
+    lib.addBook(authors, name, isbn, year);
+    lib.printBooks();
 
     repaint();
 }
