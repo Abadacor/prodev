@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     toolBar(addToolBar("&Library")),
     lib("windowLib")
 {
+
     lib.loadBooks();
     ui->setupUi(this);
 
@@ -109,12 +110,13 @@ void MainWindow::deleteBook()
 
 void MainWindow::repaint()
 {
+    ui->display->clear();
     QString str = "";
     std::vector<std::unique_ptr<Book>>& books(lib.getBooks());
     for (auto ite = books.begin(); ite < books.end(); ite++)
         str += (*ite)->to_string();
 
-    ui->display->setText(str);
+    ui->display->addItem(str);
     ui->name->setText("");
     ui->author->setText("");
     ui->isbn->setText("");
