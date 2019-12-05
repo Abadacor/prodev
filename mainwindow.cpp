@@ -50,26 +50,40 @@ void MainWindow::quit()
 
 void MainWindow::addBook()
 {
-    QString name = ui->name->text();
-    QStringList authors = ui->author->text().split(',');
-    //To get all authors, split string on "," and add them to a QStringList;
+    QString name;
+    QStringList authors;
+    QString isbn;
+    int year;
 
-    QString isbn = ui->isbn->text();
-    int year = ui->year->text().split(" ")[0].toInt();
+    bool validValues = true;
+
+    name = ui->name->text();
+    authors = ui->author->text().split(',');
+    isbn = ui->isbn->text();
+    year = ui->year->text().split(" ")[0].toInt();
 
     if(!checkString(name))
-        throw std::invalid_argument("The new book name is not correct!");
+        validValues=false;
     for(auto auth : authors)
         if(!checkString(auth))
-            throw std::invalid_argument("The new author name is not correct!");
-    //if(!checkISBN(isbn))
-    //    throw std::invalid_argument("The new ISBN is not correct!");
+            validValues=false;
+    if(!checkString(isbn))
+        validValues=false;
     if(!checkYear(year))
-        throw std::invalid_argument("The new publication date is not correct!");
+        validValues=false;
 
+    if(validValues){
 
-    lib.addBook(authors, name, isbn, year);
-    lib.printBooks();
+        lib.addBook(authors, name, isbn, year);
+        lib.printBooks();
+    }
+    else
+    {
+        QMessageBox::warning(
+            this,
+            tr("Awesome Library Warning"),
+            tr("One or more parameters you entered are not valid! Guess which :)") );
+    }
 
     repaint();
 }
@@ -113,12 +127,6 @@ bool MainWindow::checkString(QString str)
         return false;
     else
         return true;
-}
-
-bool MainWindow::checkISBN(QString isbn)
-{
-    return true;
-    //return floor(log10(isbn) + 1)==10;
 }
 
 bool MainWindow::checkYear(int year)

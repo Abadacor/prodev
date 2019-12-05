@@ -6,6 +6,7 @@
 #include <iostream>
 #include <time.h>
 #include "library.h"
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
