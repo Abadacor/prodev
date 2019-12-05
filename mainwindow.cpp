@@ -78,7 +78,7 @@ void MainWindow::addBook()
 
 void MainWindow::deleteBook()
 {
-    int isbn = ui->isbn->text().split(" ")[0].toInt();
+    QString isbn = ui->isbn->text();
     std::vector<Book>& books(lib.getBooks());
 
     for(auto ite = books.begin(); ite != books.end(); ite++)
