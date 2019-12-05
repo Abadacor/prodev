@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     toolBar(addToolBar("&Library")),
     lib("windowLib")
 {
+    lib.loadBooks();
     ui->setupUi(this);
 
     // Define actions. toolBar takes ownership of the pointers and handles the deletion
@@ -35,10 +36,9 @@ void MainWindow::changeLibrary()
     if(!checkString(newName))
         throw std::invalid_argument("The new Library name is not correct!");
 
-    this->lib.saveBooks();
-    this->lib.~Library();
-    new(&this->lib) Library(newName);
-    this->lib.loadBooks();
+    lib.saveBooks();
+    lib = Library(newName);
+    lib.loadBooks();
 
     repaint();
 }
@@ -119,6 +119,7 @@ bool MainWindow::checkString(QString str)
 bool MainWindow::checkISBN(QString isbn)
 {
     return true;
+    //return floor(log10(isbn) + 1)==10;
 }
 
 bool MainWindow::checkYear(int year)
