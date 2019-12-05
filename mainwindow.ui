@@ -35,15 +35,18 @@
           <layout class="QHBoxLayout" name="nameAndAuthorFieldsLayout">
            <item>
             <widget class="QLineEdit" name="author">
+             <property name="text">
+              <string/>
+             </property>
              <property name="placeholderText">
-              <string>Title</string>
+              <string>Author</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLineEdit" name="name">
              <property name="placeholderText">
-              <string>Author</string>
+              <string>Title</string>
              </property>
             </widget>
            </item>
