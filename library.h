@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QtSql>
+#include <memory>
 #include "book.h"
 
 class Library
@@ -15,11 +16,11 @@ public:
     void    deleteBook(QString isbn);
     void    saveBooks();
     void    printBooks();
-    std::vector<Book>& getBooks();
+    std::vector<std::unique_ptr<Book>>& getBooks();
 
 private:
     QString             mName;
-    std::vector<Book>   mBooks;
+    std::vector<std::unique_ptr<Book>>   mBooks;
 };
 
 #endif // LIBRARY_H

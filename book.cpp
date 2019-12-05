@@ -1,6 +1,6 @@
 #include "book.h"
 
-Book::Book(const QString &table, const QString &dbName, QStringList &authors, QString &title, QString ISBN, int year)
+Book::Book(const QString &table, const QString &dbName, QStringList authors, QString &title, QString ISBN, int year)
     :PersistentObject(table, dbName, "ISBN")
     ,mAuthors(authors)
     ,mTitle(title)

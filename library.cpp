@@ -35,16 +35,17 @@ void Library::createDatabase()
 
 void Library::addBook(QStringList authors, QString title, QString ISBN, int year)
 {
-    mBooks.push_back(Book(mName, "Books", authors, title, ISBN, year));
+    std::unique_ptr<Book> bookPtr(new Book(mName, "Books", authors, title, ISBN, year));
+    mBooks.push_back(std::move(bookPtr));
 }
 
 void Library::deleteBook(QString isbn)
 {
     for (auto ite = mBooks.begin(); ite != mBooks.end(); ite++)
     {
-        if (ite->getISBN() == isbn)
+        if ((*ite)->getISBN() == isbn)
         {
-            ite->deleteBook(isbn);
+            (*ite)->deleteBook(isbn);
             mBooks.erase(ite);
         }
     }
@@ -52,7 +53,7 @@ void Library::deleteBook(QString isbn)
 
 void Library::loadBooks()
 {
-    mBooks = std::vector<Book>();
+    mBooks = std::vector<std::unique_ptr<Book>>();
     auto database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(mName + ".db");
 
@@ -83,17 +84,17 @@ void Library::loadBooks()
 
 void Library::saveBooks()
 {
-    for(auto book: mBooks)
-        book.save(book.getISBN());
+    for(auto ite = mBooks.begin(); ite != mBooks.end(); ite++)
+        (*ite)->save((*ite)->getISBN());
 }
 
 void Library::printBooks()
 {
-    for(auto ite: mBooks)
-        std::cout << ite.getTitle().toStdString() << std::endl;
+    for(auto ite = mBooks.begin(); ite != mBooks.end(); ite++)
+        std::cout << (*ite)->getTitle().toStdString() << std::endl;
 }
 
-std::vector<Book>& Library::getBooks()
+std::vector<std::unique_ptr<Book>>& Library::getBooks()
 {
     return mBooks;
 }

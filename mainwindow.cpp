@@ -51,10 +51,8 @@ void MainWindow::quit()
 void MainWindow::addBook()
 {
     QString name = ui->name->text();
-    QString authorField = ui->author->text();
-
+    QStringList authors = ui->author->text().split(',');
     //To get all authors, split string on "," and add them to a QStringList;
-    QStringList authors = authorField.split(',');
 
     QString isbn = ui->isbn->text();
     int year = ui->year->text().split(" ")[0].toInt();
@@ -79,14 +77,14 @@ void MainWindow::addBook()
 void MainWindow::deleteBook()
 {
     QString isbn = ui->isbn->text();
-    std::vector<Book>& books(lib.getBooks());
+    std::vector<std::unique_ptr<Book>>& books(lib.getBooks());
 
     for(auto ite = books.begin(); ite != books.end(); ite++)
     {
-        if(ite->getISBN()==isbn)
+        if((*ite)->getISBN()==isbn)
         {
             std::cout << "IN!" << std::endl;
-            ite->deleteBook(ite->getISBN());
+            (*ite)->deleteBook((*ite)->getISBN());
             books.erase(ite);
             lib.printBooks();
             repaint();
@@ -98,8 +96,9 @@ void MainWindow::deleteBook()
 void MainWindow::repaint()
 {
     QString str = "Title\tAuthor\tISBN\tYear of publication\n";
-    for (auto book : this->lib.getBooks())
-        str += book.to_string();
+    std::vector<std::unique_ptr<Book>>& books(lib.getBooks());
+    for (auto ite = books.begin(); ite < books.end(); ite++)
+        str += (*ite)->to_string();
 
     ui->display->setText(str);
     ui->name->setText("");

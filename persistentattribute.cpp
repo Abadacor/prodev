@@ -17,7 +17,7 @@ QString PersistentAttribute::dataToString()
     case QMetaType::QString:
         return *static_cast<QString*>(mData);
     case QMetaType::QStringList:
-        return (*static_cast<QStringList*>(mData)).join(", ");
+        return (*static_cast<QStringList*>(mData)).join(',');
     default:
         throw std::invalid_argument("type of attribute not in Int, QString, QStringList");
     }
