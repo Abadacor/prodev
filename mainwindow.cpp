@@ -109,7 +109,7 @@ void MainWindow::deleteBook()
 
 void MainWindow::repaint()
 {
-    QString str = "Title\tAuthor\tISBN\tYear of publication\n";
+    QString str = "";
     std::vector<std::unique_ptr<Book>>& books(lib.getBooks());
     for (auto ite = books.begin(); ite < books.end(); ite++)
         str += (*ite)->to_string();
