@@ -28,6 +28,11 @@ void MainWindow::saveLibrary()
 {
     lib.saveBooks();
     statusBar()->showMessage(tr("saved"),2000);
+
+    QMessageBox::warning(
+        this,
+        tr("Awesome Library Warning"),
+        tr("Saved!") );
 }
 
 void MainWindow::changeLibrary()
@@ -41,6 +46,11 @@ void MainWindow::changeLibrary()
     lib.loadBooks();
 
     repaint();
+
+    QMessageBox::warning(
+        this,
+        tr("Awesome Library Warning"),
+        tr("You have switched to a new library.") );
 }
 
 void MainWindow::quit()
