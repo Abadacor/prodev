@@ -13,13 +13,16 @@ MainWindow::MainWindow(QWidget *parent) :
     // Define actions. toolBar takes ownership of the pointers and handles the deletion
     QAction *actionSave(new QAction("&Save", this));
     QAction *actionQuit(new QAction("&Quit", this));
+    QAction *actionUsage(new QAction("&Usage", this));
 
+    toolBar->addAction(actionUsage);
     toolBar->addAction(actionSave);
     toolBar->addAction(actionQuit);
 
     // Link actions to corresponding function
     connect(actionSave, SIGNAL(triggered()), this, SLOT(saveLibrary()));
     connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
+    connect(actionUsage, SIGNAL(triggered()), this, SLOT(showUsage()));
 
     repaint();
 }
@@ -129,6 +132,18 @@ void MainWindow::repaint()
     ui->author->setText("");
     ui->isbn->setText("");
     ui->year->setText("");
+}
+
+void MainWindow::showUsage()
+{
+    QMessageBox::warning(
+        this,
+        tr("Awesome Library"),
+        tr("Library Usage:\n"
+           "1. Fill out the fields with correct input and click the corresponding button to add a new book.\n"
+           "2. Delete a book by entering its ISBN in the corresponding field and press the button.\n"
+           "3. Save a playlist in the database by clicking the Save button.\n"
+           "4. Load a library by entering its name in the field and clicking the button.\n") );
 }
 
 bool MainWindow::checkString(QString str)

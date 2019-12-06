@@ -28,5 +28,5 @@ QString Book::to_string()
     QString authors = "";
     for(auto auth : mAuthors)
         authors += auth + ", ";
-    return mTitle + "\t" + authors + "\t" + mISBN + "\t" + QString::number(mYear) + "\n";
+    return mTitle + "\t\t" + authors + "\t\t" + mISBN + "\t\t" + QString::number(mYear) + "\n";
 }
