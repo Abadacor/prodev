@@ -27,7 +27,7 @@
      <item>
       <layout class="QVBoxLayout" name="InternalLayout">
        <item>
-        <widget class="QTextEdit" name="display"/>
+        <widget class="QTextBrowser" name="display"/>
        </item>
        <item>
         <layout class="QVBoxLayout" name="textFieldsLayout">
@@ -167,38 +167,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>addBookButton</sender>
-   <signal>clicked()</signal>
-   <receiver>display</receiver>
-   <slot>repaint()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>233</x>
-     <y>344</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>194</x>
-     <y>251</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>display</receiver>
-   <slot>repaint()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>231</x>
-     <y>373</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>233</x>
-     <y>251</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -211,22 +179,6 @@
     <hint type="destinationlabel">
      <x>492</x>
      <y>418</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>libChange</sender>
-   <signal>clicked()</signal>
-   <receiver>display</receiver>
-   <slot>repaint()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>610</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>600</x>
-     <y>237</y>
     </hint>
    </hints>
   </connection>
